@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayoub Chaibi | Full Stack Developer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <canvas id="snow"></canvas>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <nav>
+        <div class="container nav-content">
+            <div class="logo">AYOUB.</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#journey">Journey</a>
+                <a href="#ventures">Ventures</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="container hero-content reveal">
+            <img src="https://cdn.discordapp.com/avatars/656266921519480838/91e9a1253d5105bc2c8e5173933abb18.webp?size=1024"
+                alt="Ayoub Chaibi" class="profile-img">
+            <h1 class="hero-title">Ayoub Chaibi</h1>
+            <p class="hero-subtitle">I am a <span class="text-gradient" id="typing-text"></span><span
+                    class="cursor">|</span></p>
+            <p style="color: var(--text-secondary); margin-top: 10px; margin-bottom: 30px; font-size: 1.1rem;"><i
+                    class="fas fa-map-marker-alt" style="color: var(--accent-color);"></i> Based in Tunisia 🇹🇳</p>
+            <div class="cta-buttons">
+                <a href="https://www.avox-hosting.com/" target="_blank" class="btn btn-primary">Visit Avox Hosting</a>
+                <a href="#contact" class="btn btn-secondary">Contact Me</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container reveal">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-card">
+                <p style="text-align: center; font-size: 1.1rem; color: var(--text-secondary);">
+                    Passionate developer with expertise in building scalable web applications and managing server
+                    infrastructure.
+                    Specializing in Java, Python, and modern web technologies. As the founder of Avox Hosting,
+                    I'm dedicated to providing high-performance hosting solutions.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section">
+        <div class="container reveal">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fab fa-html5 skill-icon"></i>
+                    <h3>HTML5</h3>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-css3-alt skill-icon"></i>
+                    <h3>CSS3</h3>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-js skill-icon"></i>
+                    <h3>JavaScript</h3>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-java skill-icon"></i>
+                    <h3>Java</h3>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-python skill-icon"></i>
+                    <h3>Python</h3>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-server skill-icon"></i>
+                    <h3>Server Admin</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="journey" class="section">
+        <div class="container reveal">
+            <h2 class="section-title">My Journey</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2024</span>
+                        <h3>Founded Avox Hosting</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Launched a premium hosting service
+                            to provide reliable infrastructure for developers and gamers.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2023 - Present</span>
+                        <h3>Full Stack Developer</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Mastering Java, Python, and Web
+                            Technologies to build scalable applications.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ventures" class="section">
+        <div class="container reveal">
+            <h2 class="section-title">My Ventures</h2>
+            <div class="project-card">
+                <div class="project-content" style="text-align: center;">
+                    <h3 class="project-title text-gradient" style="font-size: 2rem; margin-bottom: 20px;">Avox Hosting
+                    </h3>
+                    <p class="project-desc">
+                        Founded in 2024. A premium hosting provider offering reliable, high-speed servers for gaming and
+                        web applications.
+                        Built with performance and uptime in mind.
+                    </p>
+                    <a href="https://www.avox-hosting.com/" target="_blank" class="btn btn-primary">Check it out <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container reveal" style="text-align: center;">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="social-links" style="margin-bottom: 30px;">
+                <a href="#" style="color: white; font-size: 2rem; margin: 0 15px;"><i class="fab fa-discord"></i></a>
+                <a href="#" style="color: white; font-size: 2rem; margin: 0 15px;"><i class="fab fa-github"></i></a>
+                <a href="#" style="color: white; font-size: 2rem; margin: 0 15px;"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p style="color: var(--text-secondary);">Ready to start a project? Let's talk.</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Ayoub Chaibi. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
