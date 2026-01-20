@@ -1,154 +1,120 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Snow Effect
-    const canvas = document.getElementById('snow');
-    const ctx = canvas.getContext('2d');
+    const cursor = document.getElementById('cursor');
+    const follower = document.getElementById('cursor-follower');
 
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-
-    canvas.width = width;
-    canvas.height = height;
-
-    const snowflakes = [];
-    const count = 100;
-
-    class Snowflake {
-        constructor() {
-            this.x = Math.random() * width;
-            this.y = Math.random() * height;
-            this.size = Math.random() * 2 + 1;
-            this.speedX = Math.random() * 0.5 - 0.25;
-            this.speedY = Math.random() * 1 + 0.5;
-            this.opacity = Math.random() * 0.5 + 0.1;
-        }
-
-        update() {
-            this.y += this.speedY;
-            this.x += this.speedX;
-
-            if (this.y > height) {
-                this.y = 0;
-                this.x = Math.random() * width;
-            }
-        }
-
-        draw() {
-            ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fill();
-        }
-    }
-
-    function initSnow() {
-        for (let i = 0; i < count; i++) {
-            snowflakes.push(new Snowflake());
-        }
-    }
-
-    function animate() {
-        ctx.clearRect(0, 0, width, height);
-        for (let flake of snowflakes) {
-            flake.update();
-            flake.draw();
-        }
-        requestAnimationFrame(animate);
-    }
-
-    // Handle Resize
-    window.addEventListener('resize', () => {
-        width = window.innerWidth;
-        height = window.innerHeight;
-        canvas.width = width;
-        canvas.height = height;
+    document.addEventListener('mousemove', (e) => {
+        const x = e.clientX;
+        const y = e.clientY;
+        cursor.style.transform = `translate(${x - 10}px, ${y - 10}px)`;
+        setTimeout(() => {
+            follower.style.transform = `translate(${x - 20}px, ${y - 20}px)`;
+        }, 50);
     });
 
-    initSnow();
-    animate();
-
-    // Smooth Scrolling for Anchors
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+    const interactiveElements = document.querySelectorAll('a, button, .bento-item');
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            follower.style.width = '80px';
+            follower.style.height = '80px';
+            follower.style.background = 'rgba(255, 51, 68, 0.1)';
+        });
+        el.addEventListener('mouseleave', () => {
+            follower.style.width = '40px';
+            follower.style.height = '40px';
+            follower.style.background = 'transparent';
         });
     });
 
-    // Scroll Reveal Animation
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
+        entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
             }
         });
-    }, {
-        threshold: 0.1
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => {
+        observer.observe(el);
     });
 
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    // Earth Scroll Interaction
+    const earth = document.querySelector('.earth-container');
+    window.addEventListener('scroll', () => {
+        const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+        const yMove = scrollPercent * 150 - 75; // Subtle Y movement
+        const rotation = scrollPercent * 3.6; // Slight rotation shift
 
-    // Typing Effect
-    const texts = ["Full Stack Developer", "CEO of Avox Hosting", "System Administrator"];
-    let textIndex = 0;
-    let charIndex = 0;
-    let currentText = "";
-    let letter = "";
-    let isDeleting = false;
-
-    function type() {
-        if (textIndex === texts.length) {
-            textIndex = 0;
+        if (earth) {
+            earth.style.transform = `translateY(calc(-50% + ${yMove}px)) rotate(${rotation}deg)`;
         }
-        currentText = texts[textIndex];
+    });
 
-        if (isDeleting) {
-            letter = currentText.slice(0, --charIndex);
-        } else {
-            letter = currentText.slice(0, ++charIndex);
-        }
+    // Rocket & Boom Logic
+    function launchRocket() {
+        const rocket = document.getElementById('rocket');
+        const boom = document.getElementById('boom');
 
-        const typingElement = document.getElementById('typing-text');
-        if (typingElement) {
-            typingElement.textContent = letter;
-        }
+        rocket.style.display = 'block';
+        rocket.style.transition = 'none';
 
-        let typeSpeed = 100;
+        // Starting Position: TOP LEFT
+        rocket.style.top = '-20%';
+        rocket.style.left = '-20%';
+        rocket.style.transform = 'rotate(135deg) scale(1.5)';
+        rocket.style.opacity = '1';
 
-        if (isDeleting) {
-            typeSpeed /= 2;
-        }
+        // Trigger flight
+        setTimeout(() => {
+            rocket.style.transition = 'all 2s cubic-bezier(0.4, 0, 0.2, 1)';
+            // Target Planet center
+            rocket.style.top = '50%';
+            rocket.style.left = '50%';
+            rocket.style.transform = 'rotate(135deg) scale(0.2)';
+            rocket.style.opacity = '0.5';
+        }, 100);
 
-        if (!isDeleting && letter.length === currentText.length) {
-            isDeleting = true;
-            typeSpeed = 2000;
-        } else if (isDeleting && letter.length === 0) {
-            isDeleting = false;
-            textIndex++;
-            typeSpeed = 500;
-        }
+        // Trigger Boom Impact
+        setTimeout(() => {
+            boom.classList.add('boom-animate');
+            const planet = document.querySelector('.planet');
+            planet.style.animation = 'none';
+            void planet.offsetWidth;
+            planet.style.animation = 'shake 0.8s ease-in-out';
 
-        setTimeout(type, typeSpeed);
+            setTimeout(() => {
+                boom.classList.remove('boom-animate');
+                rocket.style.display = 'none';
+                planet.style.animation = 'rotateEarth 60s linear infinite';
+            }, 1000);
+        }, 2100);
     }
 
-    type();
+    // Launch every 15 seconds
+    setInterval(launchRocket, 15000);
+    // Initial launch delay
+    setTimeout(launchRocket, 5000);
 
-    // Mobile Menu Toggle
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-    const links = document.querySelectorAll('.nav-links a');
+    // Support Notification Logic
+    const supportNotif = document.getElementById('supportNotif');
+    const closeNotif = document.getElementById('closeNotif');
 
-    hamburger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        hamburger.classList.toggle('active');
+    setTimeout(() => {
+        supportNotif.classList.add('active');
+    }, 2000); // 2 second delay
+
+    closeNotif.addEventListener('click', () => {
+        supportNotif.classList.remove('active');
     });
 
-    // Close menu when clicking a link
-    links.forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            hamburger.classList.remove('active');
+    // Parallax logic for background blobs
+    document.addEventListener('mousemove', (e) => {
+        const blobs = document.querySelectorAll('.blob');
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+
+        blobs.forEach((blob, index) => {
+            const speed = (index + 1) * 30;
+            blob.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
         });
     });
 });
