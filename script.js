@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Parallax logic for background blobs
     document.addEventListener('mousemove', (e) => {
-        const blobs = document.querySelectorAll('.blob');
+        const blobs = document.querySelectorAll('.blob-1, .blob-2');
         const x = e.clientX / window.innerWidth;
         const y = e.clientY / window.innerHeight;
 
