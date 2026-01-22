@@ -433,9 +433,20 @@ document.addEventListener('DOMContentLoaded', () => {
             playSound('click');
         }
 
+        // Handle Premium Button Click - Open Crisp Chat
+        const btnPremium = e.target.closest('.btn-premium');
+        if (btnPremium) {
+            if (window.$crisp) {
+                window.$crisp.push(['do', 'chat:open']);
+            }
+            const rect = btnPremium.getBoundingClientRect();
+            createConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
+            playSound('success'); // Use success sound for upgrade
+        }
+
         // Generic Click Sound for interactive elements
-        // (Avoid double playing if it's btn-neo or btn-copy which handle their own sounds)
-        if (!btnNeo && !e.target.closest('.btn-copy') && e.target.closest('a, button, .modern-select')) {
+        // (Avoid double playing if it's btn-neo or btn-copy or btn-premium which handle their own sounds)
+        if (!btnNeo && !btnPremium && !e.target.closest('.btn-copy') && e.target.closest('a, button, .modern-select')) {
              playSound('click');
         }
     });

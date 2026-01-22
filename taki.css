@@ -29,9 +29,11 @@
 body {
     font-family: var(--font-body);
     background-color: var(--color-bg);
-    /* Added background image with overlay for Neo-Brutalism feel */
-    background-image: linear-gradient(rgba(224, 231, 255, 0.85), rgba(224, 231, 255, 0.85)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1920&auto=format&fit=crop');
-    background-size: cover;
+    /* Neo-Brutalism Grid Background (Graph Paper Style) */
+    background-image: 
+        linear-gradient(rgba(0,0,0,0.05) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(0,0,0,0.05) 2px, transparent 2px);
+    background-size: 40px 40px;
     background-position: center;
     background-attachment: fixed;
     color: var(--color-text);
@@ -45,7 +47,7 @@ body {
     cursor: default;
 }
 
-/* --- Animated Pattern Background --- */
+/* --- Animated Pattern Background (Subtle Noise) --- */
 .bg-pattern {
     position: absolute;
     top: 0;
@@ -53,10 +55,9 @@ body {
     width: 100%;
     height: 100%;
     z-index: -2;
-    background-image: radial-gradient(#000 1px, transparent 1px);
-    background-size: 24px 24px;
-    opacity: 0.1;
-    animation: panBackground 60s linear infinite;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity: 0.15;
+    pointer-events: none;
 }
 
 @keyframes panBackground {
@@ -79,36 +80,50 @@ body {
     border: var(--border-width) solid var(--color-border);
     background: var(--color-card);
     box-shadow: var(--shadow-hard);
+    opacity: 0.8;
 }
 
 .shape-1 {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     background: var(--accent-tertiary);
-    top: 10%;
-    left: 10%;
-    border-radius: 50%;
-    animation: floatShape 8s ease-in-out infinite;
+    top: 15%;
+    left: 8%;
+    border-radius: 50%; /* Circle */
+    animation: floatShape 12s ease-in-out infinite;
 }
 
 .shape-2 {
-    width: 120px;
-    height: 60px;
+    width: 140px;
+    height: 140px;
     background: var(--accent-secondary);
-    bottom: 15%;
-    right: 10%;
-    border-radius: 40px;
-    animation: floatShape 10s ease-in-out infinite reverse;
+    bottom: 10%;
+    right: 5%;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%); /* Triangle */
+    animation: floatShape 15s ease-in-out infinite reverse;
 }
 
 .shape-3 {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     background: var(--accent-primary);
     top: 40%;
-    right: 25%;
-    transform: rotate(45deg);
-    animation: floatShape 12s ease-in-out infinite 2s;
+    right: 15%;
+    transform: rotate(45deg); /* Diamond */
+    animation: spin 20s linear infinite;
+}
+
+.shape-4 {
+    position: absolute;
+    width: 120px;
+    height: 60px;
+    background: var(--accent-success);
+    bottom: 25%;
+    left: 5%;
+    border: var(--border-width) solid #000;
+    box-shadow: var(--shadow-hard);
+    border-radius: 30px; /* Pill */
+    animation: floatShape 10s ease-in-out infinite 2s;
 }
 
 @keyframes floatShape {
