@@ -72,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const defaultMessage = document.getElementById('default-message');
     const comingSoonDisplay = document.getElementById('coming-soon-display');
     // Updated selector to match new btn-copy class
-    // const copyButtons = document.querySelectorAll('.btn-copy'); // Removed static selection for event delegation
     const yearSpan = document.getElementById('year');
 
     // State
@@ -101,6 +100,10 @@ document.addEventListener('DOMContentLoaded', () => {
             standardAccess: "SELECT A CLASS ABOVE",
             comingSoonTitle: "COMING SOON",
             comingSoonMsg: "Account will be added soon.",
+            premiumTitle: "GO PREMIUM",
+            premiumPrice: "15DT / MONTH",
+            premiumDesc: "Unlock daily updates & more advantages.",
+            premiumBtn: "UPGRADE NOW",
             contactUs: "CONTACT",
             rights: "All rights reserved.",
             copied: "COPIED!"
@@ -126,6 +129,10 @@ document.addEventListener('DOMContentLoaded', () => {
             standardAccess: "SÉLECTIONNEZ UNE CLASSE",
             comingSoonTitle: "BIENTÔT DISPONIBLE",
             comingSoonMsg: "Nous ajouterons ce compte bientôt.",
+            premiumTitle: "DEVENEZ PREMIUM",
+            premiumPrice: "15DT / MOIS",
+            premiumDesc: "Mises à jour quotidiennes & avantages exclusifs.",
+            premiumBtn: "PASSER AU PREMIUM",
             contactUs: "CONTACT",
             rights: "Tous droits réservés.",
             copied: "COPIÉ !"
@@ -179,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function handleClassSelection(selectedClass) {
+        playSound('swoosh'); // Play swoosh sound on class change
         const credentialsList = document.getElementById('credentials-list');
         credentialsList.innerHTML = ''; // Clear previous content
 
@@ -267,7 +275,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (targetEl) {
             const text = targetEl.innerText;
             navigator.clipboard.writeText(text).then(() => {
-                // Visual feedback
+                // Audio & Visual feedback
+                playSound('success');
+                const rect = btn.getBoundingClientRect();
+                createConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
                 const icon = btn.querySelector('i');
                 const originalClass = icon.className;
                 
@@ -356,6 +368,54 @@ document.addEventListener('DOMContentLoaded', () => {
             gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
             oscillator.start();
             oscillator.stop(audioCtx.currentTime + 0.2);
+        } else if (type === 'success') {
+            // Success Chime (Major Triad)
+            const now = audioCtx.currentTime;
+            const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+            
+            notes.forEach((freq, i) => {
+                const osc = audioCtx.createOscillator();
+                const gn = audioCtx.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, now + i * 0.05);
+                
+                gn.gain.setValueAtTime(0.05, now + i * 0.05);
+                gn.gain.exponentialRampToValueAtTime(0.001, now + i * 0.05 + 0.3);
+                
+                osc.connect(gn);
+                gn.connect(audioCtx.destination);
+                
+                osc.start(now + i * 0.05);
+                osc.stop(now + i * 0.05 + 0.3);
+            });
+        } else if (type === 'swoosh') {
+            // Swoosh effect (Filtered Noise)
+            const bufferSize = audioCtx.sampleRate * 0.5; // 0.5 seconds
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+                data[i] = Math.random() * 2 - 1;
+            }
+            
+            const noise = audioCtx.createBufferSource();
+            noise.buffer = buffer;
+            
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(200, audioCtx.currentTime);
+            filter.frequency.exponentialRampToValueAtTime(2000, audioCtx.currentTime + 0.2);
+            
+            const gn = audioCtx.createGain();
+            gn.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gn.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+            
+            noise.connect(filter);
+            filter.connect(gn);
+            gn.connect(audioCtx.destination);
+            
+            noise.start();
         }
     }
 
@@ -363,10 +423,33 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', initAudio, { once: true });
     document.addEventListener('keydown', initAudio, { once: true });
     
-    // Attach sound to elements
-    document.querySelectorAll('a, button, .modern-select').forEach(el => {
-        el.addEventListener('mouseenter', () => playSound('hover'));
-        el.addEventListener('click', () => playSound('click'));
+    // Global Event Delegation for Sounds & Effects
+    document.body.addEventListener('click', (e) => {
+        // Confetti & Click Sound for .btn-neo (Login Button)
+        const btnNeo = e.target.closest('.btn-neo');
+        if (btnNeo) {
+            const rect = btnNeo.getBoundingClientRect();
+            createConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
+            playSound('click');
+        }
+
+        // Generic Click Sound for interactive elements
+        // (Avoid double playing if it's btn-neo or btn-copy which handle their own sounds)
+        if (!btnNeo && !e.target.closest('.btn-copy') && e.target.closest('a, button, .modern-select')) {
+             playSound('click');
+        }
+    });
+
+    // Throttled Hover Sound
+    let lastHoverTime = 0;
+    document.body.addEventListener('mouseover', (e) => {
+        if (e.target.closest('a, button, .modern-select, .account-block')) {
+            const now = Date.now();
+            if (now - lastHoverTime > 50) { // 50ms throttle
+                playSound('hover');
+                lastHoverTime = now;
+            }
+        }
     });
 
     // --- Particle Confetti Effect ---
@@ -406,24 +489,6 @@ document.addEventListener('DOMContentLoaded', () => {
             animation.onfinish = () => confetti.remove();
         }
     }
-
-    // Attach to new .btn-neo
-    const mainBtn = document.querySelector('.btn-neo');
-    if (mainBtn) {
-        mainBtn.addEventListener('click', (e) => {
-            const rect = mainBtn.getBoundingClientRect();
-            createConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
-            playSound('click');
-        });
-    }
-    
-    // Attach to copy buttons
-    copyButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-             const rect = btn.getBoundingClientRect();
-             createConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
-        });
-    });
 
     // Utilities
     function setCopyrightYear() {
