@@ -58,9 +58,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             ]
         },
+        accessKeys: ['ayoub1', 'rafik1', 'paid12', 'paid11'],
         storageKeys: {
             lang: 'school_site_lang',
-            class: 'school_site_class'
+            class: 'school_site_class',
+            access: 'school_site_access_granted'
         }
     };
 
@@ -71,8 +73,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const credentialsDisplay = document.getElementById('credentials-display');
     const defaultMessage = document.getElementById('default-message');
     const comingSoonDisplay = document.getElementById('coming-soon-display');
-    // Updated selector to match new btn-copy class
     const yearSpan = document.getElementById('year');
+
+    // Access Gate Elements
+    const accessGate = document.getElementById('access-gate');
+    const accessKeyInput = document.getElementById('access-key');
+    const btnVerify = document.getElementById('btn-verify');
+    const gateError = document.getElementById('gate-error');
+    const mainAppContent = document.getElementById('main-app-content');
 
     // State
     let currentLang = sessionStorage.getItem(CONFIG.storageKeys.lang) || 'en';
@@ -103,6 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             premiumTitle: "GO PREMIUM",
             premiumPrice: "15DT / MONTH",
             premiumDesc: "Unlock daily updates & more advantages.",
+            paymentMethod: "Accepted:",
             premiumBtn: "UPGRADE NOW",
             contactUs: "CONTACT",
             rights: "All rights reserved.",
@@ -132,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
             premiumTitle: "DEVENEZ PREMIUM",
             premiumPrice: "15DT / MOIS",
             premiumDesc: "Mises à jour quotidiennes & avantages exclusifs.",
+            paymentMethod: "Accepté :",
             premiumBtn: "PASSER AU PREMIUM",
             contactUs: "CONTACT",
             rights: "Tous droits réservés.",
@@ -142,9 +152,62 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialization
     function init() {
         updateLanguage(currentLang);
+        checkAccessStatus(); // Check if user has already unlocked the gate
         restoreSession();
         setCopyrightYear();
         generateRandomSchoolName(); // Per requirement
+    }
+
+    // --- Access Gate Logic ---
+    function checkAccessStatus() {
+        const isGranted = sessionStorage.getItem(CONFIG.storageKeys.access);
+        if (isGranted === 'true') {
+            unlockGate(false); // false = no animation/sound on restore
+        }
+    }
+
+    function unlockGate(animate = true) {
+        if (animate) {
+            playSound('success');
+            const rect = btnVerify.getBoundingClientRect();
+            createConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        }
+        
+        accessGate.classList.add('hidden');
+        mainAppContent.classList.remove('hidden');
+        
+        // Save state
+        sessionStorage.setItem(CONFIG.storageKeys.access, 'true');
+    }
+
+    function verifyAccess() {
+        const inputVal = accessKeyInput.value.trim();
+        
+        if (CONFIG.accessKeys.includes(inputVal)) {
+            gateError.classList.add('hidden');
+            unlockGate(true);
+        } else {
+            // Invalid key
+            gateError.classList.remove('hidden');
+            playSound('click'); // Use click sound as error/feedback
+            
+            // Shake effect
+            accessGate.classList.add('shake');
+            setTimeout(() => accessGate.classList.remove('shake'), 500);
+        }
+    }
+
+    // Gate Listeners
+    if (btnVerify) {
+        btnVerify.addEventListener('click', verifyAccess);
+    }
+
+    if (accessKeyInput) {
+        accessKeyInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                verifyAccess();
+            }
+        });
     }
 
     // Language Handling

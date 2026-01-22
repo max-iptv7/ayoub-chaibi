@@ -69,32 +69,45 @@
                     <p data-i18n="subtitle">Authenticate to access your digital workspace.</p>
                 </div>
 
-                <div class="input-group slide-in-delay-1">
-                    <label for="class-select" class="input-label" data-i18n="chooseLevel">Educational Level</label>
-                    <div class="select-container">
-                        <i class="fas fa-layer-group input-icon"></i>
-                        <select id="class-select" name="class-select" class="modern-select">
-                            <option value="" disabled selected data-i18n="selectPlaceholder">Select your class...</option>
-                                
+                <!-- ACCESS GATE -->
+                <div id="access-gate" class="gate-container slide-in-delay-1">
+                    <label for="access-key" class="input-label">ENTER ACCESS KEY</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-key input-icon"></i>
+                        <input type="text" id="access-key" class="modern-input" placeholder="Enter your sub key..." autocomplete="off">
+                    </div>
+                    <button id="btn-verify" class="btn-neo">
+                        <span>UNLOCK ACCESS</span>
+                        <i class="fas fa-unlock"></i>
+                    </button>
+                    <p id="gate-error" class="error-msg hidden"><i class="fas fa-exclamation-triangle"></i> Invalid Access Key</p>
+                </div>
+
+                <!-- PROTECTED CONTENT -->
+                <div id="main-app-content" class="hidden">
+                    <div class="input-group slide-in-delay-1">
+                        <label for="class-select" class="input-label" data-i18n="chooseLevel">Educational Level</label>
+                        <div class="select-container">
+                            <i class="fas fa-layer-group input-icon"></i>
+                            <select id="class-select" name="class-select" class="modern-select">
+                                <option value="" disabled selected data-i18n="selectPlaceholder">Select your class...</option>
                                 <optgroup label="1ère Année" data-i18n-label="level1">
                                     <option value="1ere">1ère Année</option>
                                 </optgroup>
-                                
                                 <optgroup label="2ème Année" data-i18n-label="level2">
-                            <option value="2sc">2ème Sciences (2ème sc)</option>
-                            <option value="2info">2ème Info (2ème info)</option>
-                        </optgroup>
-                        <optgroup label="3ème Année" data-i18n-label="level3">
-                            <option value="3sc">3ème Sciences (3ème sc)</option>
-                            <option value="3math">3ème Maths (3ème math)</option>
-                            <option value="3info">3ème Info (3ème info)</option>
-                        </optgroup>
-                        <optgroup label="Baccalaureate" data-i18n-label="levelBac">
-                            <option value="bacsc">Bac Sciences (Bac sc)</option>
-                            <option value="bactech">Bac Technique (Bac tech)</option>
-                            <option value="bacinfo">Bac Info (Bac info)</option>
-                        </optgroup>
-                                
+                                    <option value="2sc">2ème Sciences (2ème sc)</option>
+                                    <option value="2info">2ème Info (2ème info)</option>
+                                </optgroup>
+                                <optgroup label="3ème Année" data-i18n-label="level3">
+                                    <option value="3sc">3ème Sciences (3ème sc)</option>
+                                    <option value="3math">3ème Maths (3ème math)</option>
+                                    <option value="3info">3ème Info (3ème info)</option>
+                                </optgroup>
+                                <optgroup label="Baccalaureate" data-i18n-label="levelBac">
+                                    <option value="bacsc">Bac Sciences (Bac sc)</option>
+                                    <option value="bactech">Bac Technique (Bac tech)</option>
+                                    <option value="bacinfo">Bac Info (Bac info)</option>
+                                </optgroup>
                             </select>
                             <i class="fas fa-chevron-down select-arrow"></i>
                         </div>
@@ -112,7 +125,6 @@
                             <div class="cred-header">
                                 <span data-i18n="accessCredentials">ACCESS GRANTED</span>
                             </div>
-                            
                             <div id="credentials-list">
                                 <!-- Dynamic Content Injected Here -->
                             </div>
@@ -122,36 +134,42 @@
                             <div class="pending-icon">
                                 <i class="fas fa-hourglass-half"></i>
                             </div>
-                            <h3 data-i18n="comingSoonTitle">Coming Soon</h3>
-                            <p data-i18n="comingSoonMsg">Account will be added soon.</p>
+                            <h3 data-i18n="comingSoonTitle">COMING SOON</h3>
+                            <p data-i18n="comingSoonDesc">This class content is being prepared.</p>
                         </div>
                     </div>
+                </div> <!-- End of #main-app-content -->
 
-                    <!-- Premium Promo Banner -->
-                    <div class="premium-banner">
-                        <div class="premium-icon">
-                            <i class="fas fa-crown"></i>
-                        </div>
-                        <div class="premium-content">
-                            <h3 data-i18n="premiumTitle">GO PREMIUM</h3>
-                            <div class="premium-price" data-i18n="premiumPrice">15DT / MONTH</div>
-                            <p data-i18n="premiumDesc">Unlock daily updates & more advantages.</p>
-                        </div>
-                        <button class="btn-premium">
-                            <span data-i18n="premiumBtn">UPGRADE NOW</span>
-                            <i class="fas fa-bolt"></i>
-                        </button>
+                <!-- Premium Promo Banner -->
+                <div class="premium-banner">
+                    <div class="premium-icon">
+                        <i class="fas fa-crown"></i>
                     </div>
+                    <div class="premium-content">
+                        <h3 data-i18n="premiumTitle">GO PREMIUM</h3>
+                        <div class="premium-price" data-i18n="premiumPrice">15DT / MONTH</div>
+                        <p data-i18n="premiumDesc">Unlock daily updates & more advantages.</p>
+                        <div class="payment-methods">
+                            <span class="payment-label" data-i18n="paymentMethod">Accepted:</span>
+                            <span class="payment-badge ooredoo">
+                                <i class="fas fa-sim-card"></i> Ooredoo
+                            </span>
+                        </div>
+                    </div>
+                    <button class="btn-premium">
+                        <span data-i18n="premiumBtn">UPGRADE NOW</span>
+                        <i class="fas fa-bolt"></i>
+                    </button>
                 </div>
-
-                <footer class="panel-footer">
-                    <p class="copyright">&copy; <span id="year"></span> Nova Lyceum</p>
-                    <div class="footer-links">
-                        <a href="#" class="footer-link"><i class="fas fa-question-circle"></i></a>
-                        <a href="#" class="footer-link"><i class="fas fa-envelope-open-text"></i></a>
-                    </div>
-                </footer>
             </div>
+
+            <footer class="panel-footer">
+                <p class="copyright">&copy; <span id="year"></span> Nova Lyceum</p>
+                <div class="footer-links">
+                    <a href="#" class="footer-link"><i class="fas fa-question-circle"></i></a>
+                    <a href="#" class="footer-link"><i class="fas fa-envelope-open-text"></i></a>
+                </div>
+            </footer>
         </main>
     </div>
 
