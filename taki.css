@@ -399,6 +399,20 @@ body {
     transition: transform 0.2s;
 }
 
+.platform-badge {
+    background: #000;
+    color: #fff;
+    display: inline-block;
+    padding: 4px 8px;
+    font-weight: 800;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    transform: rotate(-1deg);
+    border: 1px solid #fff;
+    box-shadow: 2px 2px 0px 0px rgba(0,0,0,0.2);
+}
+
 .account-block:hover {
     transform: translate(-2px, -2px);
     box-shadow: 6px 6px 0px 0px #000;

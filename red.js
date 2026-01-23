@@ -8,7 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     id: 'ilyes.mrabet.gamel@gmail.com',
                     pass: 'bilel123',
                     link: 'https://student.lyceena.tn/',
-                    labelI18n: 'emailLabel'
+                    labelI18n: 'emailLabel',
+                    platform: 'Lyceena Academy'
                 }
             ],
             '2sc': [
@@ -16,13 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     id: '25438499',
                     pass: 'Doukali2.',
                     link: 'https://app.takiacademy.com/login',
-                    labelI18n: 'idLabel'
+                    labelI18n: 'idLabel',
+                    platform: 'TakiAcademy'
                 },
                 {
                     id: '22188865',
                     pass: 'Mohsen*1973',
                     link: 'https://app.takiacademy.com/login',
-                    labelI18n: 'idLabel'
+                    labelI18n: 'idLabel',
+                    platform: 'TakiAcademy'
                 }
             ],
             'bacsc': [
@@ -30,7 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     id: '92662019',
                     pass: 'M@startup123',
                     link: 'https://app.takiacademy.com/',
-                    labelI18n: 'idLabel'
+                    labelI18n: 'idLabel',
+                    platform: 'TakiAcademy'
                 }
             ],
             'bactech': [
@@ -38,7 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     id: 'bhouriabir92@gmail.com',
                     pass: 'Bhouri2007*',
                     link: 'https://app.takiacademy.com/',
-                    labelI18n: 'emailLabel'
+                    labelI18n: 'emailLabel',
+                    platform: 'TakiAcademy'
                 }
             ],
             '3math': [
@@ -46,7 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     id: '96432436',
                     pass: '092009Ym**',
                     link: 'https://app.takiacademy.com/',
-                    labelI18n: 'idLabel'
+                    labelI18n: 'idLabel',
+                    platform: 'TakiAcademy'
                 }
             ],
             'bacinfo': [
@@ -54,7 +60,42 @@ document.addEventListener('DOMContentLoaded', () => {
                     id: '27123220',
                     pass: 'RAYENgh652024@',
                     link: 'https://app.takiacademy.com/',
-                    labelI18n: 'idLabel'
+                    labelI18n: 'idLabel',
+                    platform: 'TakiAcademy'
+                }
+            ],
+            '3tech': [
+                {
+                    id: '92440324',
+                    pass: 'Taki@2008',
+                    link: 'https://app.takiacademy.com/',
+                    labelI18n: 'idLabel',
+                    platform: 'TakiAcademy'
+                }
+            ],
+            '3eco': [
+                {
+                    id: '28455200',
+                    pass: 'Youssef2009@',
+                    link: 'https://app.takiacademy.com/',
+                    labelI18n: 'idLabel',
+                    platform: 'TakiAcademy'
+                }
+            ],
+            'baclet': [
+                {
+                    id: 'anonymeps666@gmail.com',
+                    pass: 'azizadmis25',
+                    link: 'https://student.lyceena.tn/',
+                    labelI18n: 'emailLabel',
+                    platform: 'Lyceena Academy'
+                },
+                {
+                    id: 'benazzouzamoah12@gmail.com',
+                    pass: 'ahmedhacker12',
+                    link: 'https://student.lyceena.tn/',
+                    labelI18n: 'emailLabel',
+                    platform: 'Lyceena Academy'
                 }
             ]
         },
@@ -276,7 +317,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 let passLabelText = i18n[currentLang]['password'];
                 let loginBtnText = i18n[currentLang]['loginBtn'];
 
+                const platformBadge = creds.platform ? `<div class="platform-badge">${creds.platform}</div>` : '';
+
                 accountBlock.innerHTML = `
+                    ${platformBadge}
                     <div class="cred-grid">
                         <div class="cred-item">
                             <span class="cred-label" data-i18n="${labelKey}">${labelText}</span>
