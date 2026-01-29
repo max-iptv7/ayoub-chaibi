@@ -10,6 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     link: 'https://student.lyceena.tn/',
                     labelI18n: 'emailLabel',
                     platform: 'Lyceena Academy'
+                },
+                {
+                    id: '58904032',
+                    pass: 'Minessdameme12',
+                    link: 'https://app.takiacademy.com/login',
+                    labelI18n: 'idLabel',
+                    platform: 'TakiAcademy'
                 }
             ],
             '2sc': [
@@ -26,12 +33,35 @@ document.addEventListener('DOMContentLoaded', () => {
                     link: 'https://app.takiacademy.com/login',
                     labelI18n: 'idLabel',
                     platform: 'TakiAcademy'
+                },
+                {
+                    id: '98238368',
+                    pass: 'Ahmed@2026',
+                    link: 'https://app.takiacademy.com/login',
+                    labelI18n: 'idLabel',
+                    platform: 'TakiAcademy'
+                }
+            ],
+            '2info': [
+                {
+                    id: '29599109',
+                    pass: 'Youssef+2026',
+                    link: 'https://app.takiacademy.com/login',
+                    labelI18n: 'idLabel',
+                    platform: 'TakiAcademy'
                 }
             ],
             'bacsc': [
                 {
                     id: '92662019',
                     pass: 'M@startup123',
+                    link: 'https://app.takiacademy.com/',
+                    labelI18n: 'idLabel',
+                    platform: 'TakiAcademy'
+                },
+                {
+                    id: '29877574',
+                    pass: 'Touline2007*',
                     link: 'https://app.takiacademy.com/',
                     labelI18n: 'idLabel',
                     platform: 'TakiAcademy'
@@ -44,6 +74,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     link: 'https://app.takiacademy.com/',
                     labelI18n: 'emailLabel',
                     platform: 'TakiAcademy'
+                },
+                {
+                    id: '99731071',
+                    pass: 'Slayem2007',
+                    link: 'https://app.takiacademy.com/',
+                    labelI18n: 'idLabel',
+                    platform: 'TakiAcademy'
                 }
             ],
             '3math': [
@@ -52,6 +89,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     pass: '092009Ym**',
                     link: 'https://app.takiacademy.com/',
                     labelI18n: 'idLabel',
+                    platform: 'TakiAcademy'
+                },
+                {
+                    id: 'za3forbusiness@gmail.com',
+                    pass: 'yASSINEZA3FOURI@',
+                    link: 'https://app.takiacademy.com/',
+                    labelI18n: 'emailLabel',
                     platform: 'TakiAcademy'
                 }
             ],
@@ -68,6 +112,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 {
                     id: '92440324',
                     pass: 'Taki@2008',
+                    link: 'https://app.takiacademy.com/',
+                    labelI18n: 'idLabel',
+                    platform: 'TakiAcademy'
+                },
+                {
+                    id: '29045134',
+                    pass: 'Molka2008.',
+                    link: 'https://app.takiacademy.com/',
+                    labelI18n: 'idLabel',
+                    platform: 'TakiAcademy'
+                },
+                {
+                    id: '20120173',
+                    pass: 'Ahmedbj2008',
                     link: 'https://app.takiacademy.com/',
                     labelI18n: 'idLabel',
                     platform: 'TakiAcademy'
@@ -96,6 +154,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     link: 'https://student.lyceena.tn/',
                     labelI18n: 'emailLabel',
                     platform: 'Lyceena Academy'
+                }
+            ],
+            '8eme': [
+                {
+                    id: '22950513',
+                    pass: 'Cha2510&',
+                    link: 'https://app.takiacademy.com/login',
+                    labelI18n: 'idLabel',
+                    platform: 'TakiAcademy'
+                }
+            ],
+            '9eme': [
+                {
+                    id: '97252153',
+                    pass: 'Iyed*2026',
+                    link: 'https://app.takiacademy.com/login',
+                    labelI18n: 'idLabel',
+                    platform: 'TakiAcademy'
                 }
             ]
         },
